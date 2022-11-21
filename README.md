@@ -1,5 +1,15 @@
 # Django 表單上傳檔案測試
 
+## 執行
+
+```shell
+$ cd src
+
+$ python manage.py migrate
+
+$ python python manage.py runserver
+```
+
 ## settings
 
 ```python
