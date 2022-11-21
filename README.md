@@ -22,17 +22,6 @@ REST_FRAMEWORK = {
 ```
 
 ```python
-REST_FRAMEWORK = {
-    "DEFAULT_PARSER_CLASSES": [
-        "rest_framework.parsers.MultiPartParser",
-    ],
-    "DEFAULT_RENDERER_CLASSES": [
-        "rest_framework.renderers.TemplateHTMLRenderer",
-    ],
-}
-```
-
-```python
 TEMPLATES = [
     {
         "BACKEND": "django.template.backends.django.DjangoTemplates",
@@ -66,6 +55,27 @@ MEDIA_URL = "media/"
 MEDIA_ROOT = BASE_DIR / "media"
 ```
 
+## urls
+
+```python
+from django.conf import settings
+from django.conf.urls.static import static
+from django.contrib import admin
+from django.urls import path
+from django.views.generic import RedirectView
+
+from app.books.views import books_view
+
+urlpatterns = [
+    path("admin/", admin.site.urls),
+    path("books/", books_view, name="books"),
+    path("", RedirectView.as_view(url="books")),
+]
+
+if settings.DEBUG:
+    urlpatterns += static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
+    urlpatterns += static(settings.MEDIA_URL, document_root=settings.MEDIA_ROOT)
+```
 
 ## views
 
